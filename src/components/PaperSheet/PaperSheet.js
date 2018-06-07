@@ -9,6 +9,7 @@ const styles = theme => ({
         paddingTop: 16,
         paddingBottom: 16,
         marginTop: theme.spacing.unit * 3,
+        marginBottom: theme.spacing.unit * 3,
         maxWidth:500
     }),
 });
@@ -17,7 +18,7 @@ function PaperSheet(props) {
     const { classes, children } = props;
     return (
 
-        <Grid container className={classes.root} spacing={16}>
+        <Grid container className={classes.root}>
             <Grid container className={classes.demo} justify="center">
                 <Paper className={classes.paperSheet}>
                     {children}

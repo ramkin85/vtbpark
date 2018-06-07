@@ -14,6 +14,9 @@ const styles = theme => ({
     },
     leftIcon: {
         marginRight: theme.spacing.unit,
+    },
+    hide: {
+        display: 'none',
     }
 });
 
@@ -22,23 +25,25 @@ const styles = theme => ({
 class MenuAppBar extends React.Component {
 
     state = {
-        auth: false,
-        anchorEl: null,
+
     };
 
     render() {
-        const { classes, onShowLogin,onDrawerToggle} = this.props;
+        const {addclasses, classes, onShowLogin,onDrawerToggle,drawerOpen} = this.props;
         const { auth, anchorEl } = this.state;
         const open = Boolean(anchorEl);
 
         return (
 
-                <AppBar position="static">
+                <AppBar className={addclasses}>
                     <Toolbar>
-                        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-                            <MenuIcon
-                                onClick={onDrawerToggle}
-                            />
+                        <IconButton
+                            className={classNames(classes.menuButton, drawerOpen && classes.hide)}
+                            color="inherit"
+                            aria-label="Menu"
+                            onClick={onDrawerToggle}
+                        >
+                            <MenuIcon/>
                         </IconButton>
                         <Typography variant="title" color="inherit" className={classes.flex}>
                             VTB Park
@@ -48,7 +53,7 @@ class MenuAppBar extends React.Component {
                                 onClick={onShowLogin}
                                 color="inherit"
                             >
-                                <AccountCircle className={classNames(classes.leftIcon, classes.iconSmall)} />
+                                <AccountCircle className={classNames(classes.leftIcon)} />
                                 Login
                             </Button>
                         )}
