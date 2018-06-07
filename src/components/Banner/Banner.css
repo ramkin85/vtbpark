@@ -1,0 +1,20 @@
+.slick-list{
+    height: 14rem;
+}
+
+.slick-dots{
+    bottom:10px;
+}
+.slick-dots li button:before{
+    font-size:12px;
+    line-height: 23px;
+    transition:0.2s;
+    border-radius: 50%;
+}
+
+.slick-dots li.slick-active button:before{
+    color: #a94442;
+    background: white;
+    box-shadow: 1px 1px 1px black;
+
+}
