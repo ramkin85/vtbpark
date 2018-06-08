@@ -6,11 +6,11 @@ import About from '../about'
 import MenuAppBar from '../../components/MenuAppBar/MenuAppBar';
 import LoginDialog from "../loginDialog/LoginDialog";
 import { LocalizeProvider } from "react-localize-redux";
-import {Drawer,IconButton} from "@material-ui/core"
+
 import { withStyles } from '@material-ui/core/styles';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import classNames from 'classnames';
-import Divider from "@material-ui/core/es/Divider/Divider";
+
+import MainDrawer from "../../components/MainDrawer/MainDrawer";
 
 
 const drawerWidth = 240;
@@ -62,19 +62,6 @@ const styles = theme => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
         marginLeft: drawerWidth
-    },
-    drawerPaper: {
-        width: drawerWidth,
-        docked:{
-            position:'static'
-        }
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0 8px',
-        ...theme.mixins.toolbar,
     }
 });
 
@@ -114,30 +101,12 @@ class App extends React.Component {
                         drawerOpen={drawerOpen}
                         onShowLogin={()=>this.onShowLogin()}
                     />
-                    <Drawer
-                        variant="persistent"
-                        anchor="left"
-                        open={drawerOpen}
-                        classes={{
-                            paper: classes.drawerPaper,
-                        }}
-                    >
-                        <div className={classes.drawerHeader}>
-                            <IconButton onClick={()=>this.onDrawerToggle()}>
-                                <ChevronLeftIcon />
-                            </IconButton>
-                        </div>
-                        <Divider/>
-                        {/*<div className={classes.drawerHeader}>*/}
-                            {/*<IconButton onClick={this.handleDrawerClose}>*/}
-                                {/*{theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}*/}
-                            {/*</IconButton>*/}
-                        {/*</div>*/}
-                        {/*<Divider />*/}
-                        {/*<List>{mailFolderListItems}</List>*/}
-                        {/*<Divider />*/}
-                        {/*<List>{otherMailFolderListItems}</List>*/}
-                    </Drawer>
+                    <MainDrawer
+                        drawerWidth={drawerWidth}
+                        drawerOpen={drawerOpen}
+                        onDrawerToggle={()=>this.onDrawerToggle()}
+                    />
+
                     <main
                         className={classNames(classes.content, {
                             [classes.contentShift]: drawerOpen
