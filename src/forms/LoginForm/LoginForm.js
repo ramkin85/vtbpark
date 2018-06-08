@@ -38,13 +38,14 @@ console.log(this.props);
 
                <Grid container spacing={16}>
                     <Grid item xs={12} >
-                        <Field name="login"
+                        <Field name="username"
                                required
                                component={TextField}
                                label="Логин"
                                fullWidth
                                disabled={submitting}
                         />
+
                     </Grid>
                     <Grid item xs={12}>
                         <Field

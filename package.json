@@ -9,6 +9,7 @@
     "axios": "^0.18.0",
     "classnames": "latest",
     "history": "^4.7.2",
+    "jwt-decode": "^2.2.0",
     "material-ui": "^0.20.1",
     "moment": "^2.22.2",
     "prop-types": "latest",
