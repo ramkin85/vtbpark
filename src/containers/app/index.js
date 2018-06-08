@@ -13,6 +13,7 @@ import { LocalizeProvider } from "react-localize-redux";
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import MainDrawer from "../../components/MainDrawer/MainDrawer";
+import {MainRoute} from "../route/routes";
 
 
 const drawerWidth = 240;
@@ -108,15 +109,12 @@ class App extends React.Component {
                         drawerOpen={drawerOpen}
                         onDrawerToggle={()=>this.onDrawerToggle()}
                     />
-
                     <main
                         className={classNames(classes.content, {
                             [classes.contentShift]: drawerOpen
                         })}
                     >
-                        <Route exact path="/" component={Home}/>
-                        <Route exact path="/about-us" component={About}/>
-                        <Route exact path="/cars" component={Cars}/>
+                        <MainRoute/>
                     </main>
                 </div>
                 <LoginDialog open={loginOpen} onHideLogin={()=>this.onHideLogin()} />

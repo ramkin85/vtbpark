@@ -1,12 +1,15 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 import { reducer as reduxFormReducer } from 'redux-form'
-import loginReducer from './login/reducer'
+import {currentUser} from "./currentUser";
+import {login} from "./login";
+
 
 const reducer = combineReducers({
     routing: routerReducer,
     form: reduxFormReducer, // mounted under "form"
-    login:loginReducer
+    currentUser: currentUser,
+    "login": login,
 });
 
 

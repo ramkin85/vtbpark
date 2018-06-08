@@ -29,9 +29,10 @@ class Login extends React.Component {
         event.preventDefault();
     };
 
+
     render() {
         const {classes,onClose, pristine, submitting} = this.props;
-console.log(this.props);
+
         return (
 
             <form onSubmit={this.sendLogin} className={classes.wrapper}>
