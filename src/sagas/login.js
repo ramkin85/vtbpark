@@ -21,7 +21,7 @@ export function* authorization(action) {
                 "method": "POST",
                 "url": "http://smironovich.diasoft.ru:8090/login",
                 "data": JSON.stringify(values)
-            };
+            },
             res = yield call(axios, send);
 
         let token = res.headers && res.headers.authorization && res.headers.authorization.split(" ")[2];
