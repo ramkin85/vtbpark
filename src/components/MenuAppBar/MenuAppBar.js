@@ -30,14 +30,14 @@ const styles = theme => ({
 class MenuAppBar extends React.Component {
 
     state = {
-
+        auth: localStorage.getItem("token")
     };
 
     render() {
         const {addclasses, classes, onShowLogin,onDrawerToggle,drawerOpen,changePage} = this.props;
         const { auth, anchorEl } = this.state;
         const open = Boolean(anchorEl);
-
+console.log("auth", auth);
         return (
 
                 <AppBar className={addclasses}>
@@ -53,7 +53,7 @@ class MenuAppBar extends React.Component {
                         <Typography variant="title" color="inherit" className={classes.homeButton} onClick={()=>changePage("/")}>
                             VTB Park
                         </Typography>
-                        {!auth && (
+                        {!localStorage.getItem("token") && (
                             <Button
                                 onClick={onShowLogin}
                                 color="inherit"
@@ -63,7 +63,7 @@ class MenuAppBar extends React.Component {
                             </Button>
                         )}
 
-                        {auth && (
+                        {localStorage.getItem("token") && (
                             <div>
                                 <IconButton
                                     aria-owns={open ? 'menu-appbar' : null}
