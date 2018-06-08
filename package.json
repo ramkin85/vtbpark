@@ -6,6 +6,7 @@
     "@material-ui/core": "^1.2.0",
     "@material-ui/icons": "^1.1.0",
     "auth0-js": "^9.0.0",
+    "axios": "^0.18.0",
     "classnames": "latest",
     "history": "^4.7.2",
     "material-ui": "^0.20.1",
