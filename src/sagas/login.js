@@ -22,9 +22,10 @@ export function* authorization(action) {
                 "url": "http://smironovich.diasoft.ru:8090/login",
                 "data": JSON.stringify(values)
             };
-            //res = yield call(axios, send);
+            res = yield call(axios, send);
 
-        let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTUyOTMxNTA1Nywicm9sZXMiOlsiUk9MRV9TQUxFUyJdfQ.oNKEsdJHomEMbFaZ0-3q45otBzrgbQmtzwNtThBO3kPiQKHyXL2QtOCM57ehqKk6ClRmhN4I7h7KBc_atIXlGw";
+        let token = res.headers && res.headers.authorization && res.headers.authorization.split(" ")[2];
+            //"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTUyOTMxNTA1Nywicm9sZXMiOlsiUk9MRV9TQUxFUyJdfQ.oNKEsdJHomEMbFaZ0-3q45otBzrgbQmtzwNtThBO3kPiQKHyXL2QtOCM57ehqKk6ClRmhN4I7h7KBc_atIXlGw";
 
         if (token) {
             yield put(successLogin());
