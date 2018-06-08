@@ -1,45 +1,44 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import {bindActionCreators} from "redux";
+import {connect} from "react-redux";
+import {push} from "react-router-redux";
+
 import {ListItem,ListItemIcon,ListItemText} from "@material-ui/core";
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import StarIcon from '@material-ui/icons/Star';
-import SendIcon from '@material-ui/icons/Send';
+import HelpIcon from '@material-ui/icons/Help';
+import UserIcon from '@material-ui/icons/Face';
+import DriveEtaIcon from '@material-ui/icons/DriveEta';
 
 
-const styles = theme => ({
-
-});
 
 class MainMenu extends React.Component {
 
     render() {
-        const { classes } = this.props;
+        const { changePage } = this.props;
 
         return (
             <div>
-                <ListItem button>
+                <ListItem button onClick={() => changePage("/cars")}>
                     <ListItemIcon>
-                        <InboxIcon />
+                        <DriveEtaIcon />
                     </ListItemIcon>
                     <ListItemText primary="Автомобили" />
-
                 </ListItem>
-                <ListItem button>
+                <ListItem button onClick={() => changePage("/apps")}>
                     <ListItemIcon>
                         <StarIcon />
                     </ListItemIcon>
                     <ListItemText primary="Заявки" />
                 </ListItem>
-                <ListItem button>
+                <ListItem button  onClick={() => changePage("/employees")}>
                     <ListItemIcon>
-                        <SendIcon />
+                        <UserIcon />
                     </ListItemIcon>
                     <ListItemText primary="Сотрудники" />
                 </ListItem>
-                <ListItem button>
+                <ListItem button  onClick={() => changePage("/about-us")}>
                     <ListItemIcon>
-                        <DraftsIcon />
+                        <HelpIcon />
                     </ListItemIcon>
                     <ListItemText primary="Справка" />
                 </ListItem>
@@ -48,4 +47,17 @@ class MainMenu extends React.Component {
     }
 }
 
-export default withStyles(styles)(MainMenu);
+const mapStateToProps = state => ({
+
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changePage: (page) => push(page)
+}, dispatch);
+
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(MainMenu)
+

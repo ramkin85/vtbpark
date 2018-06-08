@@ -3,11 +3,12 @@ import { withStyles } from '@material-ui/core/styles';
 import {MenuItem, Menu, Button, IconButton, Typography, Toolbar , AppBar} from "@material-ui/core"
 import {AccountCircle, Menu as MenuIcon} from "@material-ui/icons"
 import classNames from 'classnames';
+import {bindActionCreators} from "redux";
+import {push} from "react-router-redux";
+import {connect} from "react-redux";
 
 const styles = theme => ({
-    flex: {
-        flex: 1,
-    },
+
     menuButton: {
         marginLeft: -12,
         marginRight: 20,
@@ -17,6 +18,10 @@ const styles = theme => ({
     },
     hide: {
         display: 'none',
+    },
+    homeButton:{
+        cursor:'pointer',
+        flex: 1
     }
 });
 
@@ -29,7 +34,7 @@ class MenuAppBar extends React.Component {
     };
 
     render() {
-        const {addclasses, classes, onShowLogin,onDrawerToggle,drawerOpen} = this.props;
+        const {addclasses, classes, onShowLogin,onDrawerToggle,drawerOpen,changePage} = this.props;
         const { auth, anchorEl } = this.state;
         const open = Boolean(anchorEl);
 
@@ -45,7 +50,7 @@ class MenuAppBar extends React.Component {
                         >
                             <MenuIcon/>
                         </IconButton>
-                        <Typography variant="title" color="inherit" className={classes.flex}>
+                        <Typography variant="title" color="inherit" className={classes.homeButton} onClick={()=>changePage("/")}>
                             VTB Park
                         </Typography>
                         {!auth && (
@@ -93,4 +98,15 @@ class MenuAppBar extends React.Component {
     }
 }
 
-export default withStyles(styles)(MenuAppBar);
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changePage: (url) => push(url)
+}, dispatch);
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withStyles(styles)(MenuAppBar))
+

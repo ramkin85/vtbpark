@@ -3,13 +3,15 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import Home from '../home'
 import About from '../about'
+import Cars from '../cars'
+
+
 import MenuAppBar from '../../components/MenuAppBar/MenuAppBar';
 import LoginDialog from "../loginDialog/LoginDialog";
 import { LocalizeProvider } from "react-localize-redux";
 
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
-
 import MainDrawer from "../../components/MainDrawer/MainDrawer";
 
 
@@ -114,6 +116,7 @@ class App extends React.Component {
                     >
                         <Route exact path="/" component={Home}/>
                         <Route exact path="/about-us" component={About}/>
+                        <Route exact path="/cars" component={Cars}/>
                     </main>
                 </div>
                 <LoginDialog open={loginOpen} onHideLogin={()=>this.onHideLogin()} />

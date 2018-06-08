@@ -30,7 +30,7 @@ class Login extends React.Component {
     };
 
     render() {
-        const {classes,onClose, handleSubmit, pristine, submitting} = this.props;
+        const {classes,onClose, pristine, submitting} = this.props;
 console.log(this.props);
         return (
 
@@ -43,6 +43,7 @@ console.log(this.props);
                                component={TextField}
                                label="Логин"
                                fullWidth
+                               disabled={submitting}
                         />
                     </Grid>
                     <Grid item xs={12}>
@@ -53,6 +54,7 @@ console.log(this.props);
                             component={TextField}
                             label="Пароль"
                             fullWidth
+                            disabled={submitting}
                         />
                     </Grid>
                     <Grid item xs={12} align="right">
