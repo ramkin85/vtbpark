@@ -30,6 +30,7 @@
     "redux-form-input-masks": "^1.1.4",
     "redux-form-material-ui": "^5.0.0-beta.3",
     "redux-form-website-template": "0.0.122",
+    "redux-logger": "^3.0.6",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.3.0",
     "seamless-immutable": "^7.1.3",

@@ -3,13 +3,22 @@ import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 import createHistory from 'history/createBrowserHistory'
 import reducer from '../reducers/index';
+import createSagaMiddleware from "redux-saga";
+import sagaRoot from '../sagas';
+import {createLogger} from 'redux-logger';
 
 export const history = createHistory();
 
 const initialState = {};
 const enhancers = [];
+const sagaMiddleware = createSagaMiddleware();
+const logger = createLogger({
+    "level": "log",
+    "collapsed": true
+});
+
 const middleware = [
-    thunk,
+    sagaMiddleware,
     routerMiddleware(history)
 ];
 
@@ -23,7 +32,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const composedEnhancers = compose(
-    applyMiddleware(...middleware),
+    applyMiddleware(...middleware, logger),
     ...enhancers
 );
 
@@ -32,6 +41,8 @@ const store = createStore(
     initialState,
     composedEnhancers
 );
+
+sagaMiddleware.run(sagaRoot);
 
 export default store
 
