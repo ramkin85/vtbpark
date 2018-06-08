@@ -18,7 +18,7 @@ class MainMenu extends React.Component {
 
         return (
             <div>
-                <ListItem button onClick={() => changePage("/cars")}>
+                <ListItem button onClick={() => changePage("/automobiles")}>
                     <ListItemIcon>
                         <DriveEtaIcon />
                     </ListItemIcon>

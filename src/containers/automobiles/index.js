@@ -1,14 +1,12 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import CarGrid from "../../components/CarGrid/CarGrid";
+import AutomobileGrid from "../../components/AutomobileGrid/AutomobileGrid";
 
-const Cars = props => (
+const Automobiles = props => (
 
     <div>
-        <div>
-            <CarGrid/>
-        </div>
+        <AutomobileGrid/>
     </div>
 );
 
@@ -24,4 +22,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Cars)
+)(Automobiles)

@@ -3,7 +3,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import Home from '../home'
 import About from '../about'
-import Cars from '../cars'
+import Automobiles from '../automobiles'
 
 
 import MenuAppBar from '../../components/MenuAppBar/MenuAppBar';
@@ -13,6 +13,8 @@ import { LocalizeProvider } from "react-localize-redux";
 import { withStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
 import MainDrawer from "../../components/MainDrawer/MainDrawer";
+
+
 
 
 const drawerWidth = 240;
@@ -94,32 +96,33 @@ class App extends React.Component {
 
         return (
             <LocalizeProvider>
-                <div className={classes.appFrame}>
-                    <MenuAppBar
-                        addclasses={classNames(classes.appBar, {
-                            [classes.appBarShift]: drawerOpen
-                        })}
-                        onDrawerToggle={()=>this.onDrawerToggle()}
-                        drawerOpen={drawerOpen}
-                        onShowLogin={()=>this.onShowLogin()}
-                    />
-                    <MainDrawer
-                        drawerWidth={drawerWidth}
-                        drawerOpen={drawerOpen}
-                        onDrawerToggle={()=>this.onDrawerToggle()}
-                    />
+                    <div className={classes.appFrame}>
+                        <MenuAppBar
+                            addclasses={classNames(classes.appBar, {
+                                [classes.appBarShift]: drawerOpen
+                            })}
+                            onDrawerToggle={()=>this.onDrawerToggle()}
+                            drawerOpen={drawerOpen}
+                            onShowLogin={()=>this.onShowLogin()}
+                        />
+                        <MainDrawer
+                            drawerWidth={drawerWidth}
+                            drawerOpen={drawerOpen}
+                            onDrawerToggle={()=>this.onDrawerToggle()}
+                        />
 
-                    <main
-                        className={classNames(classes.content, {
-                            [classes.contentShift]: drawerOpen
-                        })}
-                    >
-                        <Route exact path="/" component={Home}/>
-                        <Route exact path="/about-us" component={About}/>
-                        <Route exact path="/cars" component={Cars}/>
-                    </main>
-                </div>
-                <LoginDialog open={loginOpen} onHideLogin={()=>this.onHideLogin()} />
+                        <main
+                            className={classNames(classes.content, {
+                                [classes.contentShift]: drawerOpen
+                            })}
+                        >
+                            <Route exact path="/" component={Home}/>
+                            <Route exact path="/about-us" component={About}/>
+                            <Route exact path="/automobiles" component={Automobiles}/>
+                        </main>
+                    </div>
+                    <LoginDialog open={loginOpen} onHideLogin={()=>this.onHideLogin()} />
+
             </LocalizeProvider>
         )
     }
