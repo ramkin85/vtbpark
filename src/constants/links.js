@@ -1,3 +1,5 @@
 export const ABOUT_LINK = "/about-us",
-    CARS_LINK = "/cars",
-    HOME_LINK = "/";
+    AUTOMOBILES_LINK = "/automobiles",
+    HOME_LINK = "/",
+    APPLICATIONS_LINK = "/apps",
+    EMPLOYEES_LINK = "/employees";

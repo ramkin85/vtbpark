@@ -1,16 +1,11 @@
 import React from 'react'
 
-import { Route } from 'react-router-dom'
-import Home from '../home'
-import About from '../about'
-import Cars from '../cars'
-
 
 import MenuAppBar from '../../components/MenuAppBar/MenuAppBar';
 import LoginDialog from "../loginDialog/LoginDialog";
-import { LocalizeProvider } from "react-localize-redux";
+import {LocalizeProvider} from "react-localize-redux";
 
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import classNames from 'classnames';
 import MainDrawer from "../../components/MainDrawer/MainDrawer";
 import {MainRoute} from "../route/routes";
@@ -74,7 +69,7 @@ class App extends React.Component {
 
     state = {
         loginOpen: false,
-        drawerOpen:false
+        drawerOpen: Boolean(localStorage.getItem("token"))
     };
 
     onShowLogin(){
@@ -84,7 +79,7 @@ class App extends React.Component {
         this.setState({'loginOpen':false});
     }
     onDrawerToggle(){
-        this.setState({drawerOpen:!this.state.drawerOpen})
+        this.setState({drawerOpen: !this.state.drawerOpen})
     }
 
 
@@ -95,20 +90,20 @@ class App extends React.Component {
 
         return (
             <LocalizeProvider>
-                <div className={classes.appFrame}>
-                    <MenuAppBar
-                        addclasses={classNames(classes.appBar, {
-                            [classes.appBarShift]: drawerOpen
-                        })}
-                        onDrawerToggle={()=>this.onDrawerToggle()}
-                        drawerOpen={drawerOpen}
-                        onShowLogin={()=>this.onShowLogin()}
-                    />
-                    <MainDrawer
-                        drawerWidth={drawerWidth}
-                        drawerOpen={drawerOpen}
-                        onDrawerToggle={()=>this.onDrawerToggle()}
-                    />
+                    <div className={classes.appFrame}>
+                        <MenuAppBar
+                            addclasses={classNames(classes.appBar, {
+                                [classes.appBarShift]: drawerOpen
+                            })}
+                            onDrawerToggle={()=>this.onDrawerToggle()}
+                            drawerOpen={drawerOpen}
+                            onShowLogin={()=>this.onShowLogin()}
+                        />
+                        <MainDrawer
+                            drawerWidth={drawerWidth}
+                            drawerOpen={drawerOpen}
+                            onDrawerToggle={()=>this.onDrawerToggle()}
+                        />
                     <main
                         className={classNames(classes.content, {
                             [classes.contentShift]: drawerOpen

@@ -1,11 +1,12 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import {MenuItem, Menu, Button, IconButton, Typography, Toolbar , AppBar} from "@material-ui/core"
+import {withStyles} from '@material-ui/core/styles';
+import {AppBar, Button, IconButton, Menu, MenuItem, Toolbar, Typography} from "@material-ui/core"
 import {AccountCircle, Menu as MenuIcon} from "@material-ui/icons"
 import classNames from 'classnames';
 import {bindActionCreators} from "redux";
 import {push} from "react-router-redux";
 import {connect} from "react-redux";
+import * as links from "../../constants/links";
 
 const styles = theme => ({
 
@@ -30,70 +31,71 @@ const styles = theme => ({
 class MenuAppBar extends React.Component {
 
     state = {
-        auth: localStorage.getItem("token")
+        isAuth: Boolean(localStorage.getItem("token"))
     };
 
     render() {
         const {addclasses, classes, onShowLogin,onDrawerToggle,drawerOpen,changePage} = this.props;
-        const { auth, anchorEl } = this.state;
+        const { isAuth, anchorEl } = this.state;
         const open = Boolean(anchorEl);
-console.log("auth", auth);
+
         return (
 
-                <AppBar className={addclasses}>
-                    <Toolbar>
-                        <IconButton
-                            className={classNames(classes.menuButton, drawerOpen && classes.hide)}
+            <AppBar className={addclasses}>
+                <Toolbar>
+                    {isAuth && <IconButton
+                        className={classNames(classes.menuButton, drawerOpen && classes.hide)}
+                        color="inherit"
+                        aria-label="Menu"
+                        onClick={onDrawerToggle}
+                    >
+                        <MenuIcon/>
+                    </IconButton>
+                    }
+                    <Typography variant="title" color="inherit" className={classes.homeButton} onClick={()=>changePage(links.HOME_LINK)}>
+                        VTB Park
+                    </Typography>
+                    {!isAuth && (
+                        <Button
+                            onClick={onShowLogin}
                             color="inherit"
-                            aria-label="Menu"
-                            onClick={onDrawerToggle}
                         >
-                            <MenuIcon/>
-                        </IconButton>
-                        <Typography variant="title" color="inherit" className={classes.homeButton} onClick={()=>changePage("/")}>
-                            VTB Park
-                        </Typography>
-                        {!localStorage.getItem("token") && (
-                            <Button
-                                onClick={onShowLogin}
+                            <AccountCircle className={classNames(classes.leftIcon)} />
+                            Login
+                        </Button>
+                    )}
+
+                    {isAuth && (
+                        <div>
+                            <IconButton
+                                aria-owns={open ? 'menu-appbar' : null}
+                                aria-haspopup="true"
+                                onClick={this.handleMenu}
                                 color="inherit"
                             >
-                                <AccountCircle className={classNames(classes.leftIcon)} />
-                                Login
-                            </Button>
-                        )}
-
-                        {localStorage.getItem("token") && (
-                            <div>
-                                <IconButton
-                                    aria-owns={open ? 'menu-appbar' : null}
-                                    aria-haspopup="true"
-                                    onClick={this.handleMenu}
-                                    color="inherit"
-                                >
-                                    <AccountCircle />
-                                </IconButton>
-                                <Menu
-                                    id="menu-appbar"
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={open}
-                                    onClose={this.handleClose}
-                                >
-                                    <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                    <MenuItem onClick={this.handleClose}>My account</MenuItem>
-                                </Menu>
-                            </div>
-                        )}
-                    </Toolbar>
-                </AppBar>
+                                <AccountCircle />
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={open}
+                                onClose={this.handleClose}
+                            >
+                                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                            </Menu>
+                        </div>
+                    )}
+                </Toolbar>
+            </AppBar>
         );
     }
 }

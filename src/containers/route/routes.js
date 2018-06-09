@@ -3,7 +3,9 @@ import ProtectedRoute from "./ProtectedRoute";
 import {Route, Router, Switch} from "react-router-dom";
 import About from "../about";
 import Home from "../home";
-import Cars from '../cars';
+import Automobiles from '../automobiles';
+import Applications from '../applications/applications';
+import Employees from '../employees/employees';
 import * as link from "../../constants/links";
 
 export function MainRoute() {
@@ -12,7 +14,9 @@ export function MainRoute() {
         <Switch>
             <Route exact path={link.HOME_LINK} component={Home}/>
             <ProtectedRoute exact path={link.ABOUT_LINK} component={About}/>
-            <ProtectedRoute exact path={link.CARS_LINK} component={Cars}/>
+            <ProtectedRoute exact path={link.AUTOMOBILES_LINK} component={Automobiles}/>
+            <ProtectedRoute exact path={link.APPLICATIONS_LINK} component={Applications}/>
+            <ProtectedRoute exact path={link.EMPLOYEES_LINK} component={Employees}/>
         </Switch>
 
     );
