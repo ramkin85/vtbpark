@@ -9,7 +9,6 @@ import {successGetAutomobile, errorGetAutomobile} from "../actions/actionAutomob
 export function* getAutomobile(action) {
     try {
         console.log("getAutomobile", action);
-        debugger;
         const {values, func} = action.payload,
 
             send = {

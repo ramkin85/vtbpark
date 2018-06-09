@@ -11,7 +11,7 @@ import classNames from 'classnames';
 import MainDrawer from "../../components/MainDrawer/MainDrawer";
 import {MainRoute} from "../route/routes";
 import withStyles from "@material-ui/core/styles/withStyles";
-
+import commonUtils from "../../utils/common";
 
 
 
@@ -71,26 +71,34 @@ const styles = theme => ({
 class App extends React.Component {
     static propTypes = {};
 
+
     state = {
         loginOpen: false,
-        drawerOpen: Boolean(localStorage.getItem("token"))
+        drawerOpen: commonUtils.isAuth()
     };
 
     onShowLogin(){
         this.setState({'loginOpen':true});
     }
     onHideLogin(){
-        this.setState({'loginOpen':false});
+        const drawerOpen = commonUtils.isAuth();
+        this.setState({
+            loginOpen: false,
+            drawerOpen: drawerOpen
+        });
     }
-    onDrawerToggle(){
-        this.setState({drawerOpen: !this.state.drawerOpen})
+    onDrawerToggle(drawerOpen){
+        this.setState({drawerOpen: (drawerOpen!==undefined ? drawerOpen : !this.state.drawerOpen)})
     }
 
 
 
     render() {
         const { classes } = this.props;
-        const {loginOpen,drawerOpen} = this.state;
+        const {loginOpen} = this.state;
+
+        const isAuth = commonUtils.isAuth();
+        const drawerOpen = isAuth && this.state.drawerOpen;
 
         return (
             <LocalizeProvider>

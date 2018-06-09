@@ -8,3 +8,12 @@ export function saveCurrentUser(currentUserData) {
         }
     };
 }
+
+
+
+export function removeCurrentUser() {
+    return {
+        "type": types.REMOVE_CURRENT_USER,
+        "payload": {}
+    };
+}

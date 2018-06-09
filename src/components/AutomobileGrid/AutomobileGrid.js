@@ -57,8 +57,6 @@ class AutomobileGrid extends Component {
         this.handleRowSelection = this.handleRowSelection.bind(this);
         this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this);
         this.handleNextPageClick = this.handleNextPageClick.bind(this);
-        this.handlePersonAddClick = this.handlePersonAddClick.bind(this);
-        this.handleInfoClick = this.handleInfoClick.bind(this);
         this.getPageData = this.getPageData.bind(this);
 
         this.state = {
@@ -134,15 +132,6 @@ class AutomobileGrid extends Component {
     }
 
 
-    handlePersonAddClick() {
-        console.log('handlePersonAddClick');
-    }
-
-    handleInfoClick() {
-        console.log('handleInfoClick');
-    }
-
-
     render() {
 
         return (
@@ -182,11 +171,6 @@ class AutomobileGrid extends Component {
         );
     }
 }
-
-/*const mapDispatchToProps = dispatch => bindActionCreators({
-    changePage: (page) => push(page),
-
-}, dispatch);*/
 
 function mapDispatchToProps(dispatch) {
     return {

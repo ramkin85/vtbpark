@@ -7,8 +7,6 @@ import IconButton from "@material-ui/core/IconButton"
 import Typography from "@material-ui/core/Typography"
 import Toolbar from "@material-ui/core/Toolbar"
 import AppBar from "@material-ui/core/AppBar"
-
-
 import AccountCircle from "@material-ui/icons/AccountCircle"
 import MenuIcon from "@material-ui/icons/Menu"
 
@@ -18,6 +16,7 @@ import {bindActionCreators} from "redux";
 import {push} from "react-router-redux";
 import {connect} from "react-redux";
 import * as links from "../../constants/links";
+import * as appActions from '../../actions';
 
 const styles = theme => ({
 
@@ -42,13 +41,36 @@ const styles = theme => ({
 class MenuAppBar extends React.Component {
 
     state = {
-        isAuth: Boolean(localStorage.getItem("token"))
+        isAuth: false,
+        userMenuOpen:false,
+        menuAnchorEl: null,
+        userName:""
     };
 
+    handleMenu(event,flag){
+        if (!this.state.menuAnchorEl && event && event.currentTarget){
+            this.setState({
+                menuAnchorEl:event.currentTarget
+            });
+        }
+        this.setState({
+            userMenuOpen: flag!=null ? flag : !this.state.userMenuOpen
+        });
+    }
+
+    logout(event){
+        this.setState({
+            userMenuOpen:false
+        });
+        const {actions} = this.props;
+        this.props.onDrawerToggle(false);
+        actions.requestLogout();
+    }
+
     render() {
-        const {addclasses, classes, onShowLogin,onDrawerToggle,drawerOpen,changePage} = this.props;
-        const { isAuth, anchorEl } = this.state;
-        const open = Boolean(anchorEl);
+        const {addclasses, classes, onShowLogin,onDrawerToggle,drawerOpen,changePage,userName} = this.props;
+        const { userMenuOpen,menuAnchorEl} = this.state;
+        const isAuth = Boolean(localStorage.getItem("token"));
 
         return (
 
@@ -78,17 +100,18 @@ class MenuAppBar extends React.Component {
 
                     {isAuth && (
                         <div>
-                            <IconButton
-                                aria-owns={open ? 'menu-appbar' : null}
+                            <Button
+                                aria-owns={userMenuOpen ? 'menu-appbar' : null}
                                 aria-haspopup="true"
-                                onClick={this.handleMenu}
+                                onClick={(event)=>{this.handleMenu(event,true)}}
                                 color="inherit"
                             >
-                                <AccountCircle />
-                            </IconButton>
+                                <AccountCircle  className={classNames(classes.leftIcon)} />
+                                {userName}
+                            </Button>
                             <Menu
                                 id="menu-appbar"
-                                anchorEl={anchorEl}
+                                anchorEl={menuAnchorEl}
                                 anchorOrigin={{
                                     vertical: 'top',
                                     horizontal: 'right',
@@ -97,11 +120,11 @@ class MenuAppBar extends React.Component {
                                     vertical: 'top',
                                     horizontal: 'right',
                                 }}
-                                open={open}
-                                onClose={this.handleClose}
+                                open={userMenuOpen}
+                                onClose={()=>{this.handleMenu(false)}}
                             >
-                                <MenuItem onClick={this.handleClose}>Profile</MenuItem>
-                                <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                                <MenuItem onClick={(event)=>{this.handleMenu(event,false)}}>Профиль</MenuItem>
+                                <MenuItem onClick={(event)=>{this.logout(event)}}>Выход</MenuItem>
                             </Menu>
                         </div>
                     )}
@@ -111,12 +134,20 @@ class MenuAppBar extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-});
+const mapStateToProps = (state) => {
+    return {
+        userName: state.currentUser && state.currentUser.data && state.currentUser.data.sub
+    }
+};
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    changePage: (url) => push(url)
-}, dispatch);
+function mapDispatchToProps(dispatch) {
+    return {
+        changePage: (url) => push(url),
+        actions: bindActionCreators(appActions.actions, dispatch)
+    };
+}
+
+
 
 export default connect(
     mapStateToProps,

@@ -11,7 +11,6 @@ class AutomobileView extends Component {
 
     componentDidMount() {
         const {actions} = this.props;
-        debugger;
         actions.requestGetAutomobile(this.props.vin);
     }
 
