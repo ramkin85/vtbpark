@@ -14,19 +14,23 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
 import store, { history } from './store/store'
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import App from './containers/app'
+
 import './index.css'
 
 
+injectTapEventPlugin();
 
 const target = document.querySelector('#root');
 
     render(
-        <Provider store={store}>
-            <ConnectedRouter history={history}>
-                    <App/>
-            </ConnectedRouter>
-        </Provider>,
+
+            <Provider store={store}>
+                <ConnectedRouter history={history}>
+                        <App/>
+                </ConnectedRouter>
+            </Provider>,
     target
 );
 

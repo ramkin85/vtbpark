@@ -1,9 +1,14 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import maskUtils from "../../utils/maskUtils"
-import {TextField, Select} from 'redux-form-material-ui'
-import {Grid, FormControl, InputLabel,Button,MenuItem} from "@material-ui/core/es"
+import TextField from 'redux-form-material-ui/lib/TextField'
+import Select from 'redux-form-material-ui/lib/Select'
 
+import Grid from "@material-ui/core/Grid"
+import FormControl from "@material-ui/core/FormControl"
+import InputLabel from "@material-ui/core/InputLabel"
+import Button from "@material-ui/core/Button"
+import MenuItem from "@material-ui/core/MenuItem"
 //import asyncValidate from './asyncValidate'
 
 

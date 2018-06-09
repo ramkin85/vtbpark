@@ -23,9 +23,11 @@ export function* authorization(action) {
                 "data": JSON.stringify(values)
             },
             res = yield call(axios, send);
+        debugger;
+        console.log("res", res);
+        console.log(axios.defaults.headers);
 
-        let token = res.headers && res.headers.authorization && res.headers.authorization.split(" ")[2];
-            //"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTUyOTMxNTA1Nywicm9sZXMiOlsiUk9MRV9TQUxFUyJdfQ.oNKEsdJHomEMbFaZ0-3q45otBzrgbQmtzwNtThBO3kPiQKHyXL2QtOCM57ehqKk6ClRmhN4I7h7KBc_atIXlGw";
+        let token =res && res.headers && res.headers.authorization; //"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTUyOTMxNTA1Nywicm9sZXMiOlsiUk9MRV9TQUxFUyJdfQ.oNKEsdJHomEMbFaZ0-3q45otBzrgbQmtzwNtThBO3kPiQKHyXL2QtOCM57ehqKk6ClRmhN4I7h7KBc_atIXlGw";
 
         if (token) {
             yield put(successLogin());
@@ -38,6 +40,7 @@ export function* authorization(action) {
         }
 
     } catch (error) {
+        yield put(errorLogin("Некорректный логин/пароль"));
         console.error(error);
     }
 }

@@ -1,14 +1,18 @@
 import React from 'react'
 
+import Automobiles from '../automobiles'
 
 import MenuAppBar from '../../components/MenuAppBar/MenuAppBar';
 import LoginDialog from "../loginDialog/LoginDialog";
 import {LocalizeProvider} from "react-localize-redux";
 
-import {withStyles} from '@material-ui/core/styles';
+
 import classNames from 'classnames';
 import MainDrawer from "../../components/MainDrawer/MainDrawer";
 import {MainRoute} from "../route/routes";
+import withStyles from "@material-ui/core/styles/withStyles";
+
+
 
 
 const drawerWidth = 240;

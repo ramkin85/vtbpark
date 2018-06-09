@@ -4,8 +4,11 @@ import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as appActions from '../../actions';
 
-import {TextField} from 'redux-form-material-ui'
-import {Grid, Button, withStyles} from "@material-ui/core"
+import TextField from 'redux-form-material-ui/lib/TextField'
+import withStyles from "@material-ui/core/styles/withStyles";
+import Grid from "@material-ui/core/Grid/Grid";
+import Button from "@material-ui/core/Button/Button";
+
 
 const styles = theme => ({
     wrapper: {
