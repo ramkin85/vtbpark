@@ -2,7 +2,7 @@ import * as types from './actionsTypes';
 
 export function requestAutomobilesList(values, func) {
     return {
-        "type": types.CARS_LIST_REQUEST,
+        "type": types.AUTOMOBILES_LIST_REQUEST,
         "payload": {
             values,
             func
@@ -12,14 +12,14 @@ export function requestAutomobilesList(values, func) {
 
 export function successAutomobilesList(value) {
     return {
-        "type": types.CARS_LIST_SUCCESS,
+        "type": types.AUTOMOBILES_LIST_SUCCESS,
         value
     };
 }
 
 export function errorAutomobilesList(value) {
     return {
-        "type": types.CARS_LIST_FAILURE,
+        "type": types.AUTOMOBILES_LIST_FAILURE,
         value
     };
 }

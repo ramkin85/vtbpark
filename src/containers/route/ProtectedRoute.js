@@ -18,7 +18,7 @@ class ProtectedRoute extends Component {
             {roles = []} = currentUser,
             //availableLinks = getAvailableLinks([_roles.ADMINISTRATOR]) || [],// mock
             availableLinks = getAvailableLinks(roles) || [], //Todo: Получить роли у текующего юзера
-            isAccess = Boolean(localStorage.getItem("token")) && availableLinks.includes(path);
+            isAccess = Boolean(localStorage.getItem("token")) && availableLinks.findIndex(i => path.includes(i)) > -1;
 
         return isAccess ? <ProtectedComponent {...routeProps}/> : <Redirect to={{"pathname": links.HOME_LINK}}/>
     }
