@@ -1,10 +1,10 @@
 import * as types from './actionsTypes';
 
-export function requestAutomobilesList(values, func) {
+export function requestAutomobilesList(params, func) {
     return {
         "type": types.AUTOMOBILES_LIST_REQUEST,
         "payload": {
-            values,
+            params,
             func
         }
     };

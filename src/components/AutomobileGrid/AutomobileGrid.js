@@ -11,6 +11,7 @@ import {bindActionCreators} from "redux";
 import {push} from "react-router-redux";
 import {connect} from "react-redux";
 import * as link from "../../constants/links";
+import * as appActions from '../../actions';
 
 const styles = {
     container: {
@@ -45,7 +46,7 @@ const muiTheme = getMuiTheme({
 
 
 const TABLE_COLUMNS = getColumns();
-let TABLE_DATA=generateData(100);
+let TABLE_DATA = generateData(100);
 
 
 class AutomobileGrid extends Component {
@@ -62,16 +63,30 @@ class AutomobileGrid extends Component {
 
         this.state = {
             data: TABLE_DATA,
-            filteredData:TABLE_DATA,
+            filteredData: TABLE_DATA,
             page: 1
         };
+    }
+
+    componentDidMount() {
+        console.log("&&&&&&&&&&&&&", this.props);
+        const {actions} = this.props,
+            {requestAutomobilesList} = actions;
+
+        requestAutomobilesList({"page": this.state.page, "rowsCount": "10", "filter": "", "orderBy": "VIN Desc"});
+    }
+
+    static getDerivedStateFromProps(props, state) {
+
     }
 
     handleSortOrderChange(key, order) {
         console.log('key:' + key + ' order: ' + order);
         let component = this;
         component.setState({
-            filteredData: _.orderBy(component.state.filteredData, [function(o) { return o[key]; }],[order])
+            filteredData: _.orderBy(component.state.filteredData, [function (o) {
+                return o[key];
+            }], [order])
         })
     }
 
@@ -79,14 +94,14 @@ class AutomobileGrid extends Component {
         console.log('filter value: ' + filterStr);
         let component = this;
         this.setState({
-            page:1,
-            filteredData: _.filter(component.state.data,function(item){
-                if (["",undefined].indexOf(filterStr)>-1) return true;
-                let rg=new RegExp(filterStr,"gi");
-                let res=false;
-                _.each(TABLE_COLUMNS,function(col){
-                    if ((item[col.key]+'').search(rg)>-1){
-                        res=true;
+            page: 1,
+            filteredData: _.filter(component.state.data, function (item) {
+                if (["", undefined].indexOf(filterStr) > -1) return true;
+                let rg = new RegExp(filterStr, "gi");
+                let res = false;
+                _.each(TABLE_COLUMNS, function (col) {
+                    if ((item[col.key] + '').search(rg) > -1) {
+                        res = true;
                         return false;
                     }
                 });
@@ -96,25 +111,26 @@ class AutomobileGrid extends Component {
     }
 
     handleRowSelection(selectedRows) {
-        this.props.changePage(link.AUTOMOBILE_LINK.replace(/\:VIN/,this.getPageData()[selectedRows].VIN));
+        this.props.changePage(link.AUTOMOBILE_LINK.replace(/\:VIN/, this.getPageData()[selectedRows].VIN));
         console.log('selectedRows: ' + selectedRows);
     }
 
     handlePreviousPageClick() {
         console.log('handlePreviousPageClick');
         this.setState({
-            page: this.state.page-1
+            page: this.state.page - 1
         });
     }
 
     handleNextPageClick() {
         console.log('handleNextPageClick');
         this.setState({
-            page: this.state.page+1,
+            page: this.state.page + 1,
         });
     }
-    getPageData(){
-        return _.chunk(this.state.filteredData,10 )[this.state.page-1]||[]
+
+    getPageData() {
+        return _.chunk(this.state.filteredData, 10)[this.state.page - 1] || []
     }
 
 
@@ -125,7 +141,6 @@ class AutomobileGrid extends Component {
     handleInfoClick() {
         console.log('handleInfoClick');
     }
-
 
 
     render() {
@@ -143,7 +158,7 @@ class AutomobileGrid extends Component {
                             <DataTables
                                 height={'100%'}
                                 tableBodyStyle={{overflowX: 'auto'}}
-                                tableStyle={{width:'inherit'}}
+                                tableStyle={{width: 'inherit'}}
                                 selectable={true}
                                 showRowHover={true}
                                 columns={TABLE_COLUMNS}
@@ -168,9 +183,18 @@ class AutomobileGrid extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({
-    changePage: (page) => push(page)
-}, dispatch);
+/*const mapDispatchToProps = dispatch => bindActionCreators({
+    changePage: (page) => push(page),
+
+}, dispatch);*/
+
+function mapDispatchToProps(dispatch) {
+    return {
+        "actions": bindActionCreators(appActions.actions, dispatch),
+        "changePage": (page) => push(page)
+    };
+}
+
 
 export default connect(
     null,
