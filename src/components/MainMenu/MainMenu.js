@@ -3,7 +3,11 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import {push} from "react-router-redux";
 
-import {ListItem,ListItemIcon,ListItemText} from "@material-ui/core";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+
+
 import StarIcon from '@material-ui/icons/Star';
 import HelpIcon from '@material-ui/icons/Help';
 import UserIcon from '@material-ui/icons/Face';

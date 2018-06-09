@@ -1,8 +1,9 @@
 import React from 'react'
-import { withStyles } from '@material-ui/core/styles';
-import {Dialog,DialogTitle,Slide} from "@material-ui/core";
-import {AccountCircle} from "@material-ui/icons";
-
+import withStyles from "@material-ui/core/styles/withStyles";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Slide from "@material-ui/core/Slide";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 import LoginForm from "../../forms/LoginForm/LoginForm";
 
 

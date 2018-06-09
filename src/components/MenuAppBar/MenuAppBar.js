@@ -1,7 +1,18 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import {MenuItem, Menu, Button, IconButton, Typography, Toolbar , AppBar} from "@material-ui/core"
-import {AccountCircle, Menu as MenuIcon} from "@material-ui/icons"
+import withStyles from "@material-ui/core/styles/withStyles";
+import MenuItem from "@material-ui/core/MenuItem"
+import Menu from "@material-ui/core/Menu"
+import Button from "@material-ui/core/Button"
+import IconButton from "@material-ui/core/IconButton"
+import Typography from "@material-ui/core/Typography"
+import Toolbar from "@material-ui/core/Toolbar"
+import AppBar from "@material-ui/core/AppBar"
+
+
+import AccountCircle from "@material-ui/icons/AccountCircle"
+import MenuIcon from "@material-ui/icons/Menu"
+
+
 import classNames from 'classnames';
 import {bindActionCreators} from "redux";
 import {push} from "react-router-redux";

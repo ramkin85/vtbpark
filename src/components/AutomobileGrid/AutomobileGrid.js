@@ -9,7 +9,8 @@ import MenuItem from 'material-ui/MenuItem';
 import {Card, CardHeader} from 'material-ui/Card';
 import {DataTables} from "material-ui-datatables";
 import _ from "lodash";
-
+import generateData from "./TableData";
+import getColumns from "./TableColumns";
 
 const styles = {
     container: {
@@ -43,177 +44,9 @@ const muiTheme = getMuiTheme({
 });
 
 
-const TABLE_COLUMNS = [
-    {
-        key: 'VIN',
-        label: 'VIN',
-        className: 'important-column'
-    }, {
-        key: 'Brand',
-        label: 'Марка'
-    }, {
-        key: 'Year',
-        label: 'Год выпуска'
-    },{
-        key: 'Mileage',
-        label: 'Пробег, км'
-    },{
-        key: 'LastMaintenanceDate',
-        label: 'Последнее ТО',
-        tooltip:'Дата последнего технического обслуживания'
+const TABLE_COLUMNS = getColumns();
+let TABLE_DATA=generateData(100);
 
-    },{
-        key: 'PlanMaintenanceDate',
-        label: 'Плановое ТО',
-        tooltip:'Дата очередного технического обслуживания'
-    },{
-        key: 'State',
-        label: 'Статус'
-    },{
-        key: 'TransferDate',
-        label: 'Переход'
-    },{
-        key: 'PlanState',
-        label: 'Плановый статус'
-    },{
-        key: 'PlanTransferDate',
-        label: 'Плановый  переход'
-    },{
-        key: 'OfficeName',
-        label: 'Офис приписки'
-    },{
-        key: 'CurrentOfficeName',
-        label: 'Текущий офис'
-    }
-];
-_.each(TABLE_COLUMNS,function(col){
-    _.defaults(col,{
-        sortable:true,
-        tooltip:col.label
-    });
-});
-
-
-const TABLE_DATA = [
-    {
-        name: 'Frozen yogurt',
-        calories: '159',
-        fat: '6.0',
-        carbs: '24',
-        protein: '4.0',
-        sodium: '87',
-        calcium: '14%',
-        iron: '1%',
-    }, {
-        name: 'Ice cream sandwich',
-        calories: '159',
-        fat: '6.0',
-        carbs: '24',
-        protein: '4.0',
-        sodium: '87',
-        calcium: '14%',
-        iron: '1%',
-    }, {
-        name: 'Eclair',
-        calories: '159',
-        fat: '6.0',
-        carbs: '24',
-        protein: '4.0',
-        sodium: '87',
-        calcium: '14%',
-        iron: '1%',
-    }, {
-        name: 'Cupcake',
-        calories: '159',
-        fat: '6.0',
-        carbs: '24',
-        protein: '4.0',
-        sodium: '87',
-        calcium: '14%',
-        iron: '1%',
-    }, {
-        name: 'Gingerbread',
-        calories: '159',
-        fat: '6.0',
-        carbs: '24',
-        protein: '4.0',
-        sodium: '87',
-        calcium: '14%',
-        iron: '1%',
-    }, {
-        name: 'Jelly bean',
-        calories: '159',
-        fat: '6.0',
-        carbs: '24',
-        protein: '4.0',
-        sodium: '87',
-        calcium: '14%',
-        iron: '1%',
-    }, {
-        name: 'Lollipop',
-        calories: '159',
-        fat: '6.0',
-        carbs: '24',
-        protein: '4.0',
-        sodium: '87',
-        calcium: '14%',
-        iron: '1%',
-    }, {
-        name: 'Honeycomb',
-        calories: '159',
-        fat: '6.0',
-        carbs: '24',
-        protein: '4.0',
-        sodium: '87',
-        calcium: '14%',
-        iron: '1%',
-    }, {
-        name: 'Donut',
-        calories: '159',
-        fat: '6.0',
-        carbs: '24',
-        protein: '4.0',
-        sodium: '87',
-        calcium: '14%',
-        iron: '1%',
-    }, {
-        name: 'KitKat',
-        calories: '159',
-        fat: '6.0',
-        carbs: '24',
-        protein: '4.0',
-        sodium: '87',
-        calcium: '14%',
-        iron: '1%',
-    },
-];
-
-function generateVIN(){
-    let tpl="0 1 2 3 4 5 6 7 8 9 A B C D E F G H J K L M N P R S T U V W X Y Z".split(" ");
-    let res=[];
-    for (var i=0;i<17;i++){
-        res.push(_.sample(tpl));
-    }
-
-    return res.join("");
-}
-
-_.each(TABLE_DATA,function(data){
-    data.VIN=generateVIN();
-});
-
-const TABLE_DATA_NEXT = [
-    {
-        name: 'Marshmallow',
-        calories: '159',
-        fat: '6.0',
-        carbs: '24',
-        protein: '4.0',
-        sodium: '87',
-        calcium: '14%',
-        iron: '1%',
-    },
-];
 
 class AutomobileGrid extends Component {
     constructor(props, context) {
@@ -227,19 +60,41 @@ class AutomobileGrid extends Component {
         this.handleNextPageClick = this.handleNextPageClick.bind(this);
         this.handlePersonAddClick = this.handlePersonAddClick.bind(this);
         this.handleInfoClick = this.handleInfoClick.bind(this);
+        this.getPageData = this.getPageData.bind(this);
 
         this.state = {
             data: TABLE_DATA,
-            page: 1,
+            filteredData:TABLE_DATA,
+            page: 1
         };
     }
 
     handleSortOrderChange(key, order) {
         console.log('key:' + key + ' order: ' + order);
+        let component = this;
+        component.setState({
+            filteredData: _.orderBy(component.state.filteredData, [function(o) { return o[key]; }],[order])
+        })
     }
 
-    handleFilterValueChange(value) {
-        console.log('filter value: ' + value);
+    handleFilterValueChange(filterStr) {
+        console.log('filter value: ' + filterStr);
+        let component = this;
+        this.setState({
+            page:1,
+            filteredData: _.filter(component.state.data,function(item){
+                if (["",undefined].indexOf(filterStr)>-1) return true;
+                let rg=new RegExp(filterStr,"gi");
+                let res=false;
+                _.each(TABLE_COLUMNS,function(col){
+                    if ((item[col.key]+'').search(rg)>-1){
+                        res=true;
+                        return false;
+                    }
+                });
+                return res;
+            })
+        })
     }
 
     handleCellClick(rowIndex, columnIndex, row, column) {
@@ -257,18 +112,20 @@ class AutomobileGrid extends Component {
     handlePreviousPageClick() {
         console.log('handlePreviousPageClick');
         this.setState({
-            data: TABLE_DATA,
-            page: 1,
+            page: this.state.page-1
         });
     }
 
     handleNextPageClick() {
         console.log('handleNextPageClick');
         this.setState({
-            data: TABLE_DATA_NEXT,
-            page: 2,
+            page: this.state.page+1,
         });
     }
+    getPageData(){
+        return _.chunk(this.state.filteredData,10 )[this.state.page-1]||[]
+    }
+
 
     handlePersonAddClick() {
         console.log('handlePersonAddClick');
@@ -278,7 +135,10 @@ class AutomobileGrid extends Component {
         console.log('handleInfoClick');
     }
 
+
+
     render() {
+
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div style={styles.container}>
@@ -286,7 +146,7 @@ class AutomobileGrid extends Component {
                     <div style={styles.component}>
                         <Card style={{margin: 12, textAlign: 'left'}}>
                             <CardHeader
-                                title='Автомобили'
+                                title='Список автомобилей'
                                 titleStyle={{fontSize: 20}}
                             />
                             <DataTables
@@ -296,15 +156,18 @@ class AutomobileGrid extends Component {
                                 selectable={true}
                                 showRowHover={true}
                                 columns={TABLE_COLUMNS}
-                                data={this.state.data}
+                                data={this.getPageData()}
                                 page={this.state.page}
                                 multiSelectable={false}
                                 showCheckboxes={false}
                                 enableSelectAll={false}
+                                showHeaderToolbar={true}
                                 onNextPageClick={this.handleNextPageClick}
                                 onPreviousPageClick={this.handlePreviousPageClick}
                                 onRowSelection={this.handleRowSelection}
-                                count={11}
+                                onSortOrderChange={this.handleSortOrderChange}
+                                onFilterValueChange={this.handleFilterValueChange}
+                                count={this.state.filteredData && this.state.filteredData.length}
                             />
                         </Card>
                     </div>

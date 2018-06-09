@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from "@material-ui/core/styles/withStyles";
 import Paper from '@material-ui/core/Paper';
-import Grid from "@material-ui/core/es/Grid/Grid";
+import Grid from "@material-ui/core/Grid/Grid";
 
 const styles = theme => ({
     paperSheet: theme.mixins.gutters({
