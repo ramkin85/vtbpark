@@ -1,10 +1,9 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {saveCurrentUser} from "../actions/currentUserAction";
-import {successLogin, errorLogin} from "../actions/actionLogin";
+import {errorLogin, successLogin} from "../actions/actionLogin";
 import * as actionTypes from '../actions/actionsTypes.js';
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import * as currentUser from "../actions/currentUserAction";
 
 
 export function* authorization(action) {

@@ -46,7 +46,6 @@ const muiTheme = getMuiTheme({
 
 
 const TABLE_COLUMNS = getColumns();
-let TABLE_DATA = generateData(100);
 
 
 class AutomobileGrid extends Component {
@@ -62,22 +61,29 @@ class AutomobileGrid extends Component {
         this.getPageData = this.getPageData.bind(this);
 
         this.state = {
-            data: TABLE_DATA,
-            filteredData: TABLE_DATA,
+            data: [],
+            filteredData: [],
             page: 1
         };
     }
 
-    componentDidMount() {
-        console.log("&&&&&&&&&&&&&", this.props);
-        const {actions} = this.props,
+    getList() {
+        const {page = 1, order = "VIN Desc", filterStr = ""} = this.state,
+            {actions} = this.props,
             {requestAutomobilesList} = actions;
 
-        requestAutomobilesList({"page": this.state.page, "rowsCount": "10", "filter": "", "orderBy": "VIN Desc"});
+        requestAutomobilesList({page, "rowsCount": "10", "filter": "", "orderBy": order});
+    }
+
+    componentDidMount() {
+        this.getList();
     }
 
     static getDerivedStateFromProps(props, state) {
 
+        return {
+            "filteredData": props.automobiles.list
+        }
     }
 
     handleSortOrderChange(key, order) {
@@ -87,7 +93,9 @@ class AutomobileGrid extends Component {
             filteredData: _.orderBy(component.state.filteredData, [function (o) {
                 return o[key];
             }], [order])
-        })
+        });
+
+        this.setState({"order": `${key} ${order}`}, () => this.getList())
     }
 
     handleFilterValueChange(filterStr) {
@@ -106,12 +114,14 @@ class AutomobileGrid extends Component {
                     }
                 });
                 return res;
-            })
-        })
+            }),
+            filterStr
+        }, () => this.getList());
     }
 
     handleRowSelection(selectedRows) {
-        this.props.changePage(link.AUTOMOBILE_LINK.replace(/\:VIN/, this.getPageData()[selectedRows].VIN));
+        console.log("this.getPageData()", this.props);
+        this.props.actions.changePage(link.AUTOMOBILE_LINK.replace(/\:VIN/, this.getPageData()[selectedRows].VIN));
         console.log('selectedRows: ' + selectedRows);
     }
 
@@ -190,14 +200,23 @@ class AutomobileGrid extends Component {
 
 function mapDispatchToProps(dispatch) {
     return {
-        "actions": bindActionCreators(appActions.actions, dispatch),
-        "changePage": (page) => push(page)
+        "actions": bindActionCreators({
+                ...appActions.actions,
+                changePage: (page) => push(page)
+            }
+            , dispatch),
+    };
+}
+
+function mapStateToProps(state) {
+    return {
+        "automobiles": state.automobiles,
     };
 }
 
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(AutomobileGrid)
 

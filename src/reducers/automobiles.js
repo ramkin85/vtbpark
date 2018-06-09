@@ -6,11 +6,13 @@ export const automobiles = (state = initialState, action) => {
         case AUTOMOBILES_LIST_REQUEST:
             return {
                 ...state,
+                "list": [],
                 "progress": true
             };
         case AUTOMOBILES_LIST_SUCCESS:
             return {
                 ...state,
+                "list": action.value,
                 "progress": false
             };
         case AUTOMOBILES_LIST_FAILURE:
