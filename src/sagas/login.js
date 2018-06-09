@@ -1,10 +1,10 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {saveCurrentUser} from "../actions/currentUserAction";
-import {successLogin, errorLogin} from "../actions/actionLogin";
+import {errorLogin, successLogin} from "../actions/actionLogin";
+import {showNotification} from "../actions/actionNotification";
 import * as actionTypes from '../actions/actionsTypes.js';
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import * as currentUser from "../actions/currentUserAction";
 
 
 export function* authorization(action) {
@@ -31,13 +31,16 @@ export function* authorization(action) {
             const decoded = jwt_decode(token);
             yield put(saveCurrentUser(decoded));
             localStorage.setItem("token", token);
+            yield put (showNotification({type:'success',message:"Добро пожаловать, "+decoded.sub}));
             func();
         } else {
             yield put(errorLogin("Некорректный логин/пароль"));
+            yield put (showNotification({type:'error',message:"Некорректный логин/пароль"}));
         }
 
     } catch (error) {
         yield put(errorLogin("Некорректный логин/пароль"));
+        yield put (showNotification({type:'error',message:"Некорректный логин/пароль"}));
         console.error(error);
     }
 }
