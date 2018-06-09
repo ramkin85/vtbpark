@@ -1,6 +1,9 @@
 import * as types from './actionsTypes';
 
 export function requestAutomobilesList(params, func) {
+
+    params.page=Math.max(params.page-1,0);
+
     return {
         "type": types.AUTOMOBILES_LIST_REQUEST,
         "payload": {

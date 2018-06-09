@@ -12,6 +12,7 @@ import MainDrawer from "../../components/MainDrawer/MainDrawer";
 import {MainRoute} from "../route/routes";
 import withStyles from "@material-ui/core/styles/withStyles";
 import commonUtils from "../../utils/common";
+import Notificator from "../../components/Notificator/Notificator";
 
 
 
@@ -125,6 +126,7 @@ class App extends React.Component {
                     </main>
                 </div>
                 <LoginDialog open={loginOpen} onHideLogin={()=>this.onHideLogin()} />
+                <Notificator/>
             </LocalizeProvider>
         )
     }

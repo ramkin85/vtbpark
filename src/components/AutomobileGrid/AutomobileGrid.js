@@ -5,7 +5,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Card, CardHeader} from 'material-ui/Card';
 import {DataTables} from "material-ui-datatables";
 import _ from "lodash";
-import generateData from "./TableData";
 import getColumns from "./TableColumns";
 import {bindActionCreators} from "redux";
 import {push} from "react-router-redux";
@@ -46,7 +45,6 @@ const muiTheme = getMuiTheme({
 
 
 const TABLE_COLUMNS = getColumns();
-let TABLE_DATA = generateData(100);
 
 
 class AutomobileGrid extends Component {
@@ -60,32 +58,39 @@ class AutomobileGrid extends Component {
         this.getPageData = this.getPageData.bind(this);
 
         this.state = {
-            data: TABLE_DATA,
-            filteredData: TABLE_DATA,
+            orderBy: "VIN Desc",
+            filteredData: [],
             page: 1
         };
     }
 
-    componentDidMount() {
-        console.log("&&&&&&&&&&&&&", this.props);
-        const {actions} = this.props,
-            {requestAutomobilesList} = actions;
+    getList() {
+        const {page = 1, orderBy = "VIN Desc", filterStr = ""} = this.state,
+            {actions} = this.props;
+        actions.requestAutomobilesList({page, "rowsCount": "10", "filterStr": filterStr, "orderBy": orderBy});
+    }
 
-        requestAutomobilesList({"page": this.state.page, "rowsCount": "10", "filter": "", "orderBy": "VIN Desc"});
+    componentDidMount() {
+        this.getList();
     }
 
     static getDerivedStateFromProps(props, state) {
 
+        return {
+            "filteredData": props.automobiles.list
+        }
     }
 
     handleSortOrderChange(key, order) {
         console.log('key:' + key + ' order: ' + order);
-        let component = this;
-        component.setState({
-            filteredData: _.orderBy(component.state.filteredData, [function (o) {
-                return o[key];
-            }], [order])
-        })
+        //let component = this;
+        // component.setState({
+        //     filteredData: _.orderBy(component.state.filteredData, [function (o) {
+        //         return o[key];
+        //     }], [order])
+        // });
+
+        this.setState({"orderBy": `${key} ${order}`}, () => this.getList())
     }
 
     handleFilterValueChange(filterStr) {
@@ -93,23 +98,27 @@ class AutomobileGrid extends Component {
         let component = this;
         this.setState({
             page: 1,
-            filteredData: _.filter(component.state.data, function (item) {
-                if (["", undefined].indexOf(filterStr) > -1) return true;
-                let rg = new RegExp(filterStr, "gi");
-                let res = false;
-                _.each(TABLE_COLUMNS, function (col) {
-                    if ((item[col.key] + '').search(rg) > -1) {
-                        res = true;
-                        return false;
-                    }
-                });
-                return res;
-            })
-        })
+            filterStr
+            // filteredData: _.filter(component.state.data, function (item) {
+            //     if (["", undefined].indexOf(filterStr) > -1) return true;
+            //     let rg = new RegExp(filterStr, "gi");
+            //     let res = false;
+            //     _.each(TABLE_COLUMNS, function (col) {
+            //         if ((item[col.key] + '').search(rg) > -1) {
+            //             res = true;
+            //             return false;
+            //         }
+            //     });
+            //     return res;
+            // }),
+
+        }, () => this.getList());
     }
 
     handleRowSelection(selectedRows) {
-        this.props.changePage(link.AUTOMOBILE_LINK.replace(/\:VIN/, this.getPageData()[selectedRows].VIN));
+        //console.log("this.getPageData()", this.props);
+        const {automobiles} = this.props;
+        this.props.actions.changePage(link.AUTOMOBILE_LINK.replace(/\:VIN/, automobiles.list.data[selectedRows].VIN));
         console.log('selectedRows: ' + selectedRows);
     }
 
@@ -128,12 +137,17 @@ class AutomobileGrid extends Component {
     }
 
     getPageData() {
-        return _.chunk(this.state.filteredData, 10)[this.state.page - 1] || []
+        return this.state.filteredData;
+        //return _.chunk(this.state.filteredData, 10)[this.state.page - 1] || []
     }
+
+
+
 
 
     render() {
 
+        const {automobiles} = this.props;
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div style={styles.container}>
@@ -151,7 +165,7 @@ class AutomobileGrid extends Component {
                                 selectable={true}
                                 showRowHover={true}
                                 columns={TABLE_COLUMNS}
-                                data={this.getPageData()}
+                                data={automobiles.list.data||[]}
                                 page={this.state.page}
                                 multiSelectable={false}
                                 showCheckboxes={false}
@@ -162,7 +176,7 @@ class AutomobileGrid extends Component {
                                 onRowSelection={this.handleRowSelection}
                                 onSortOrderChange={this.handleSortOrderChange}
                                 onFilterValueChange={this.handleFilterValueChange}
-                                count={this.state.filteredData && this.state.filteredData.length}
+                                count={automobiles.list.totalCount}
                             />
                         </Card>
                     </div>
@@ -172,16 +186,28 @@ class AutomobileGrid extends Component {
     }
 }
 
+/*const mapDispatchToProps = dispatch => bindActionCreators({
+    changePage: (page) => push(page),
+}, dispatch);*/
+
 function mapDispatchToProps(dispatch) {
     return {
-        "actions": bindActionCreators(appActions.actions, dispatch),
-        "changePage": (page) => push(page)
+        "actions": bindActionCreators({
+                ...appActions.actions,
+                changePage: (page) => push(page)
+            }
+            , dispatch),
+    };
+}
+
+function mapStateToProps(state) {
+    return {
+        "automobiles": state.automobiles,
     };
 }
 
 
 export default connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
 )(AutomobileGrid)
-
