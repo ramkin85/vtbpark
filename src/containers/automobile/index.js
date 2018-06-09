@@ -1,15 +1,15 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import AutomobileCard from "../../components/AutomobileCard/AutomobileCard";
+import AutomobileView from "../../view/AutomobileView/AutomobileView";
 
 const Automobile = props =>{
     const {match} = props;
     return (
         <div>
-            <AutomobileCard
+            <AutomobileView
                 vin={match.params.VIN}
-            ></AutomobileCard>
+            ></AutomobileView>
         </div>
     )
 };

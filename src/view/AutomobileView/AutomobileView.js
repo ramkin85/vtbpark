@@ -3,19 +3,24 @@ import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 import * as appActions from "../../actions";
 
+import PaperSheet from "../../components/PaperSheet/PaperSheet";
 
-class AutomobileCard extends Component {
+
+
+class AutomobileView extends Component {
 
     componentDidMount() {
         const {actions} = this.props;
         debugger;
-        actions.requestGetAutomobile();
+        actions.requestGetAutomobile(this.props.vin);
     }
 
     render() {
         const {vin} = this.props;
         return (
-            <div>{vin}</div>
+            <PaperSheet>
+                <div>{vin}</div>
+            </PaperSheet>
         );
     }
 }
@@ -28,5 +33,5 @@ function mapDispatchToProps(dispatch) {
 export default connect(
     null,
     mapDispatchToProps
-)(AutomobileCard)
+)(AutomobileView)
 

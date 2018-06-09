@@ -4,7 +4,7 @@ import {Route, Router, Switch} from "react-router-dom";
 import About from "../about";
 import Home from "../home";
 import Automobiles from '../automobiles';
-import AutomobileCard from '../automobilecard';
+import AutomobileCard from '../automobile';
 import * as link from "../../constants/links";
 
 
