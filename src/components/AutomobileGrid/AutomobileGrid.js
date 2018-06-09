@@ -129,14 +129,14 @@ class AutomobileGrid extends Component {
         console.log('handlePreviousPageClick');
         this.setState({
             page: this.state.page - 1
-        });
+        }, () => this.getList());
     }
 
     handleNextPageClick() {
         console.log('handleNextPageClick');
         this.setState({
             page: this.state.page + 1,
-        });
+        }, () => this.getList());
     }
 
     getPageData() {
