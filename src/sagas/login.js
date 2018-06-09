@@ -13,9 +13,9 @@ export function* authorization(action) {
         const {values, func} = action.payload,
             send = {
                 "headers": {
-                    "Authorization":"",
-                    "Access-Control-Expose-Headers":"Authorization, X-Authorization",
-                    "Access-Control-Allow-Origin":"*",
+                    "Authorization": "",
+                    "Access-Control-Expose-Headers": "Authorization, X-Authorization",
+                    "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json"
                 },
                 "method": "POST",
@@ -23,11 +23,8 @@ export function* authorization(action) {
                 "data": JSON.stringify(values)
             },
             res = yield call(axios, send);
-        debugger;
-        console.log("res", res);
-        console.log(axios.defaults.headers);
 
-        let token =res && res.headers && res.headers.authorization; //"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTUyOTMxNTA1Nywicm9sZXMiOlsiUk9MRV9TQUxFUyJdfQ.oNKEsdJHomEMbFaZ0-3q45otBzrgbQmtzwNtThBO3kPiQKHyXL2QtOCM57ehqKk6ClRmhN4I7h7KBc_atIXlGw";
+        let token = res && res.headers && res.headers.authorization;
 
         if (token) {
             yield put(successLogin());

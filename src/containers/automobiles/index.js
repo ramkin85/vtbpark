@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import AutomobileGrid from "../../components/AutomobileGrid/AutomobileGrid";
 
 const Automobiles = props => (
-
     <div>
         <AutomobileGrid/>
     </div>
