@@ -30,8 +30,6 @@ function PaperSheet(props) {
                 </Paper>
             </Grid>
         </Grid>
-
-
     );
 }
 

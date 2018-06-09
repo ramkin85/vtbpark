@@ -1,14 +1,10 @@
 import React from 'react'
 
-import { Route } from 'react-router-dom'
-import Home from '../home'
-import About from '../about'
 import Automobiles from '../automobiles'
-
 
 import MenuAppBar from '../../components/MenuAppBar/MenuAppBar';
 import LoginDialog from "../loginDialog/LoginDialog";
-import { LocalizeProvider } from "react-localize-redux";
+import {LocalizeProvider} from "react-localize-redux";
 
 
 import classNames from 'classnames';
@@ -77,7 +73,7 @@ class App extends React.Component {
 
     state = {
         loginOpen: false,
-        drawerOpen:false
+        drawerOpen: Boolean(localStorage.getItem("token"))
     };
 
     onShowLogin(){
@@ -87,7 +83,7 @@ class App extends React.Component {
         this.setState({'loginOpen':false});
     }
     onDrawerToggle(){
-        this.setState({drawerOpen:!this.state.drawerOpen})
+        this.setState({drawerOpen: !this.state.drawerOpen})
     }
 
 
