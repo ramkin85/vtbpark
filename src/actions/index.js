@@ -1,11 +1,11 @@
 import * as actionLogin from './actionLogin';
 import * as currentUser from './currentUserAction';
-import * as actionCarsList from './actionAutomobilesList';
+import * as actionAutomobile from './actionAutomobile';
 
 const actions = {
     ...actionLogin,
     ...currentUser,
-    ...actionCarsList
+    ...actionAutomobile
 };
 
 export {actions};

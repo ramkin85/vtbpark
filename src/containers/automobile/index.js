@@ -1,13 +1,18 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import AutomobileGrid from "../../components/AutomobileGrid/AutomobileGrid";
+import AutomobileView from "../../view/AutomobileView/AutomobileView";
 
-const Automobiles = props => (
-    <div>
-        <AutomobileGrid/>
-    </div>
-);
+const Automobile = props =>{
+    const {match} = props;
+    return (
+        <div>
+            <AutomobileView
+                vin={match.params.VIN}
+            ></AutomobileView>
+        </div>
+    )
+};
 
 
 const mapStateToProps = state => ({
@@ -21,4 +26,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(Automobiles)
+)(Automobile)

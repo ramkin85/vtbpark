@@ -1,23 +1,23 @@
 import React, {Component} from 'react';
-import RaisedButton from 'material-ui/RaisedButton';
-import Dialog from 'material-ui/Dialog';
 import {deepOrange500} from 'material-ui/styles/colors';
-import FlatButton from 'material-ui/FlatButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import MenuItem from 'material-ui/MenuItem';
 import {Card, CardHeader} from 'material-ui/Card';
 import {DataTables} from "material-ui-datatables";
 import _ from "lodash";
 import generateData from "./TableData";
 import getColumns from "./TableColumns";
+import {bindActionCreators} from "redux";
+import {push} from "react-router-redux";
+import {connect} from "react-redux";
+import * as link from "../../constants/links";
 
 const styles = {
     container: {
         textAlign: 'center',
     },
     component: {
-        margin: '60px 20px',
+        margin: '30px 20px',
     },
     titleStyle: {
         fontSize: 16,
@@ -53,8 +53,6 @@ class AutomobileGrid extends Component {
         super(props, context);
         this.handleSortOrderChange = this.handleSortOrderChange.bind(this);
         this.handleFilterValueChange = this.handleFilterValueChange.bind(this);
-        this.handleCellClick = this.handleCellClick.bind(this);
-        this.handleCellDoubleClick = this.handleCellDoubleClick.bind(this);
         this.handleRowSelection = this.handleRowSelection.bind(this);
         this.handlePreviousPageClick = this.handlePreviousPageClick.bind(this);
         this.handleNextPageClick = this.handleNextPageClick.bind(this);
@@ -97,15 +95,8 @@ class AutomobileGrid extends Component {
         })
     }
 
-    handleCellClick(rowIndex, columnIndex, row, column) {
-        console.log('rowIndex: ' + rowIndex + ' columnIndex: ' + columnIndex);
-    }
-
-    handleCellDoubleClick(rowIndex, columnIndex, row, column) {
-        console.log('rowIndex: ' + rowIndex + ' columnIndex: ' + columnIndex);
-    }
-
     handleRowSelection(selectedRows) {
+        this.props.changePage(link.AUTOMOBILE_LINK.replace(/\:VIN/,this.getPageData()[selectedRows].VIN));
         console.log('selectedRows: ' + selectedRows);
     }
 
@@ -171,58 +162,18 @@ class AutomobileGrid extends Component {
                             />
                         </Card>
                     </div>
-                    {/*<div style={styles.component}>*/}
-                        {/*<h2>DataTables (Filter & Column Sort & Styled Column)</h2>*/}
-                        {/*<Card style={{margin: 12}}>*/}
-                            {/*<DataTables*/}
-                                {/*title={'Nutrition'}*/}
-                                {/*height={'auto'}*/}
-                                {/*selectable={false}*/}
-                                {/*showRowHover={true}*/}
-                                {/*columns={TABLE_COLUMNS_SORT_STYLE}*/}
-                                {/*data={TABLE_DATA}*/}
-                                {/*showCheckboxes={false}*/}
-                                {/*showHeaderToolbar={true}*/}
-                                {/*onCellClick={this.handleCellClick}*/}
-                                {/*onCellDoubleClick={this.handleCellDoubleClick}*/}
-                                {/*onFilterValueChange={this.handleFilterValueChange}*/}
-                                {/*onSortOrderChange={this.handleSortOrderChange}*/}
-                                {/*count={100}*/}
-                            {/*/>*/}
-                        {/*</Card>*/}
-                    {/*</div>*/}
-
-
-                    {/*<div style={styles.component}>*/}
-                        {/*<h2>DataTables (onRowSelection handler & onCellDoubleClick handler)</h2>*/}
-                        {/*<Card style={{margin: 12, textAlign: 'left'}}>*/}
-                            {/*<CardHeader*/}
-                                {/*title='Nutrition'*/}
-                                {/*titleStyle={{fontSize: 20}}*/}
-                            {/*/>*/}
-                            {/*<DataTables*/}
-                                {/*height={'auto'}*/}
-                                {/*selectable={true}*/}
-                                {/*showRowHover={true}*/}
-                                {/*columns={TABLE_COLUMNS_TOOLTIP}*/}
-                                {/*data={this.state.data}*/}
-                                {/*page={this.state.page}*/}
-                                {/*multiSelectable={false}*/}
-                                {/*onRowSelection={this.handleRowSelection}*/}
-                                {/*onCellDoubleClick={this.handleCellDoubleClick}*/}
-                                {/*showCheckboxes={false}*/}
-                                {/*enableSelectAll={false}*/}
-                                {/*count={11}*/}
-                            {/*/>*/}
-                        {/*</Card>*/}
-                    {/*</div>*/}
-
-
-
                 </div>
             </MuiThemeProvider>
         );
     }
 }
 
-export default AutomobileGrid;
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changePage: (page) => push(page)
+}, dispatch);
+
+export default connect(
+    null,
+    mapDispatchToProps
+)(AutomobileGrid)
+
