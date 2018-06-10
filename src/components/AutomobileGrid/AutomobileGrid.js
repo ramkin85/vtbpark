@@ -11,10 +11,13 @@ import {push} from "react-router-redux";
 import {connect} from "react-redux";
 import * as link from "../../constants/links";
 import * as appActions from '../../actions';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 const styles = {
     container: {
         textAlign: 'center',
+        position:'relative'
     },
     component: {
         margin: '30px 20px',
@@ -31,10 +34,15 @@ const styles = {
     },
     tableBodyStyle: {
         overflowX: 'auto',
+        minHeight: 200
     },
     tableWrapperStyle: {
         padding: 5,
     },
+    progress:{
+        position:'absolute',
+        top:'50%'
+    }
 };
 
 const muiTheme = getMuiTheme({
@@ -83,13 +91,6 @@ class AutomobileGrid extends Component {
 
     handleSortOrderChange(key, order) {
         console.log('key:' + key + ' order: ' + order);
-        //let component = this;
-        // component.setState({
-        //     filteredData: _.orderBy(component.state.filteredData, [function (o) {
-        //         return o[key];
-        //     }], [order])
-        // });
-
         this.setState({"orderBy": `${key} ${order}`}, () => this.getList())
     }
 
@@ -99,19 +100,6 @@ class AutomobileGrid extends Component {
         this.setState({
             page: 1,
             filterStr
-            // filteredData: _.filter(component.state.data, function (item) {
-            //     if (["", undefined].indexOf(filterStr) > -1) return true;
-            //     let rg = new RegExp(filterStr, "gi");
-            //     let res = false;
-            //     _.each(TABLE_COLUMNS, function (col) {
-            //         if ((item[col.key] + '').search(rg) > -1) {
-            //             res = true;
-            //             return false;
-            //         }
-            //     });
-            //     return res;
-            // }),
-
         }, () => this.getList());
     }
 
@@ -151,6 +139,7 @@ class AutomobileGrid extends Component {
         return (
             <MuiThemeProvider muiTheme={muiTheme}>
                 <div style={styles.container}>
+                    {automobiles.progress && <CircularProgress style={styles.progress}/>}
 
                     <div style={styles.component}>
                         <Card style={{margin: 12, textAlign: 'left'}}>
@@ -160,8 +149,8 @@ class AutomobileGrid extends Component {
                             />
                             <DataTables
                                 height={'100%'}
-                                tableBodyStyle={{overflowX: 'auto'}}
-                                tableStyle={{width: 'inherit'}}
+                                tableBodyStyle={styles.tableBodyStyle}
+                                tableStyle={styles.tableStyle}
                                 selectable={true}
                                 showRowHover={true}
                                 columns={TABLE_COLUMNS}

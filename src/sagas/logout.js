@@ -3,6 +3,7 @@ import {removeCurrentUser} from "../actions/currentUserAction";
 import {successLogout, errorLogout} from "../actions/actionLogout";
 import * as actionTypes from '../actions/actionsTypes.js';
 import axios from "axios";
+import {showNotification} from "../actions/actionNotification";
 
 
 export function* logout(action) {
@@ -10,7 +11,10 @@ export function* logout(action) {
         console.log("logout", action);
         localStorage.removeItem("token");
         yield put(removeCurrentUser());
-
+        yield put(showNotification({
+            type:"info",
+            message:"До свидания"
+        }));
         const {values, func} = action.payload,
             send = {
                 "headers": {

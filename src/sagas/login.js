@@ -5,6 +5,7 @@ import {showNotification} from "../actions/actionNotification";
 import * as actionTypes from '../actions/actionsTypes.js';
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import {REQUEST_LOGIN_URL} from "../constants/settings";
 
 
 export function* authorization(action) {
@@ -13,13 +14,13 @@ export function* authorization(action) {
         const {values, func} = action.payload,
             send = {
                 "headers": {
-                    "Authorization": "",
+                    "Authorization": localStorage.getItem("token"),
                     "Access-Control-Expose-Headers": "Authorization, X-Authorization",
                     "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json"
                 },
                 "method": "POST",
-                "url": "http://smironovich.diasoft.ru:8090/login",
+                "url":  REQUEST_LOGIN_URL,
                 "data": JSON.stringify(values)
             },
             res = yield call(axios, send);

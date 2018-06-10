@@ -2,7 +2,7 @@ import {call, put, takeEvery} from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionsTypes.js';
 import axios from "axios";
 import {successGetAutomobile, errorGetAutomobile} from "../actions/actionAutomobile";
-
+import commonUtils from "../utils/common"
 
 
 
@@ -13,14 +13,14 @@ export function* getAutomobile(action) {
 
             send = {
                 "headers": {
-                    "Authorization": localStorage.getItem("token"),
+                    "Authorization": commonUtils.getToken(),
                     "Access-Control-Expose-Headers": "Authorization, X-Authorization",
                     "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json"
                 },
-                "method": "POST",
+                "method": "GET",
                 "url": "http://smironovich.diasoft.ru:8090/automobile",
-                "data": JSON.stringify(values)
+                "data": values
             },
             res = yield call(axios, send);
 
