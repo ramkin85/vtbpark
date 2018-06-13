@@ -1,11 +1,13 @@
 import React from 'react'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
+import PaperSheet from "../../components/PaperSheet/PaperSheet";
 
 const Applications = props => (
 
-    <div>
-    </div>
+    <PaperSheet>
+        Applications TODO
+    </PaperSheet>
 );
 
 

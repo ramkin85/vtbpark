@@ -7,6 +7,7 @@ import Automobiles from '../automobiles';
 import Automobile from '../automobile';
 import Applications from '../applications/applications';
 import Employees from '../employees/employees';
+import References from '../references/references';
 import * as link from "../../constants/links";
 
 
@@ -20,6 +21,7 @@ export function MainRoute() {
             <ProtectedRoute exact path={link.AUTOMOBILE_LINK} component={Automobile}/>
             <ProtectedRoute exact path={link.APPLICATIONS_LINK} component={Applications}/>
             <ProtectedRoute exact path={link.EMPLOYEES_LINK} component={Employees}/>
+            <ProtectedRoute exact path={link.REFERENCES_LINK} component={References}/>
         </Switch>
 
     );

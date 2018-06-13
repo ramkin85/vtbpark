@@ -25,7 +25,6 @@ export function* getAutomobilesList(action) {
             },
             totalCount: 0
         };
-        debugger;
         const {func, params} = action.payload,
 
             send = {

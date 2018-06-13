@@ -17,7 +17,8 @@ export function getAvailableLinks(currentRoles = []) {
         links =
             [
                 ...links,
-                _links.ABOUT_LINK
+                _links.ABOUT_LINK,
+                _links.REFERENCES_LINK
             ];
     }
     return links;
