@@ -1,5 +1,5 @@
 export const
-    GATEWAY_PORT='32576',
+    GATEWAY_PORT='32265',
     //REQUEST_LOGIN_URL = 'http://10.20.5.254:32751/login',
     //REQUEST_LOGINOUT_URL = 'http://10.20.5.254:32751/logout',
     REQUEST_LOGIN_URL = 'http://10.20.5.254:'+GATEWAY_PORT+'/auth/login',
