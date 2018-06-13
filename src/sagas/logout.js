@@ -4,6 +4,7 @@ import {successLogout, errorLogout} from "../actions/actionLogout";
 import * as actionTypes from '../actions/actionsTypes.js';
 import axios from "axios";
 import {showNotification} from "../actions/actionNotification";
+import {REQUEST_LOGINOUT_URL} from "../constants/settings";
 
 
 export function* logout(action) {
@@ -24,7 +25,7 @@ export function* logout(action) {
                     "Content-Type": "application/json"
                 },
                 "method": "POST",
-                "url": "http://smironovich.diasoft.ru:8090/logout",
+                "url": REQUEST_LOGINOUT_URL,
                 "data": JSON.stringify(values)
             },
             res = yield call(axios, send);

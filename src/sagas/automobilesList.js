@@ -46,10 +46,12 @@ export function* getAutomobilesList(action) {
             totalCount:0
         };
 
-        if (res && res.data && res.data.content){
+        if (res && res.data && res.data._embedded){
             _.extend(response,{
-                data:res.data.content,
-                totalCount:res.data.totalElements
+                //data:res.data.content,
+                data:res.data._embedded.cars,
+                totalCount:res.data.page.totalElements
+                //totalCount:res.data.totalElements
             });
         }
 

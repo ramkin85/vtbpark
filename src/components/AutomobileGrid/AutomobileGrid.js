@@ -66,14 +66,14 @@ class AutomobileGrid extends Component {
         this.getPageData = this.getPageData.bind(this);
 
         this.state = {
-            orderBy: "VIN Desc",
+            orderBy: "VIN,Desc",
             filteredData: [],
             page: 1
         };
     }
 
     getList() {
-        const {page = 1, orderBy = "VIN Desc", filterStr = ""} = this.state,
+        const {page = 1, orderBy = "VIN,Desc", filterStr = ""} = this.state,
             {actions} = this.props;
         actions.requestAutomobilesList({page, "rowsCount": "10", "filterStr": filterStr, "orderBy": orderBy});
     }
@@ -89,9 +89,9 @@ class AutomobileGrid extends Component {
         }
     }
 
-    handleSortOrderChange(key, order) {
+    handleSortOrderChange(key, order) { debugger;
         console.log('key:' + key + ' order: ' + order);
-        this.setState({"orderBy": `${key} ${order}`}, () => this.getList())
+        this.setState({"orderBy": `${key},${order}`}, () => this.getList())
     }
 
     handleFilterValueChange(filterStr) {

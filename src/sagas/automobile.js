@@ -2,7 +2,8 @@ import {call, put, takeEvery} from 'redux-saga/effects';
 import * as actionTypes from '../actions/actionsTypes.js';
 import axios from "axios";
 import {successGetAutomobile, errorGetAutomobile} from "../actions/actionAutomobile";
-import commonUtils from "../utils/common"
+import commonUtils from "../utils/common";
+import {REQUEST_AUTOMOBILE_URL} from "../constants/settings";
 
 
 
@@ -19,7 +20,7 @@ export function* getAutomobile(action) {
                     "Content-Type": "application/json"
                 },
                 "method": "GET",
-                "url": "http://smironovich.diasoft.ru:8090/automobile",
+                "url": REQUEST_AUTOMOBILE_URL,
                 "data": values
             },
             res = yield call(axios, send);
