@@ -46,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ProtectedRoute.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ProtectedRoute.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/containers/route/ProtectedRoute.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="192">
-              <caret line="17" column="37" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
+              <caret line="17" column="12" lean-forward="false" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -66,7 +66,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="references.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="references.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/containers/references/references.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="128">
@@ -220,11 +220,11 @@
         <option value="$PROJECT_DIR$/src/components/MenuAppBar/MenuAppBar.js" />
         <option value="$PROJECT_DIR$/src/containers/route/routes.js" />
         <option value="$PROJECT_DIR$/src/utils/getAvailableLinks.js" />
-        <option value="$PROJECT_DIR$/src/containers/route/ProtectedRoute.js" />
         <option value="$PROJECT_DIR$/src/sagas/automobilesList.js" />
         <option value="$PROJECT_DIR$/src/containers/applications/applications.js" />
         <option value="$PROJECT_DIR$/src/containers/employees/employees.js" />
         <option value="$PROJECT_DIR$/src/containers/references/references.js" />
+        <option value="$PROJECT_DIR$/src/containers/route/ProtectedRoute.js" />
       </list>
     </option>
   </component>
@@ -344,17 +344,18 @@
       <workItem from="1528716050006" duration="6000" />
       <workItem from="1528870462886" duration="882000" />
       <workItem from="1528872034306" duration="41000" />
-      <workItem from="1528872082294" duration="1711000" />
+      <workItem from="1528872082294" duration="1977000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143831000" />
+    <option name="totallyTimeSpent" value="144097000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1928" height="1060" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22064245" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22064245" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -687,7 +688,7 @@
         <state relative-caret-position="208">
           <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
           <folding>
-            <element signature="e#0#78#0" expanded="true" />
+            <element signature="e#0#78#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -714,14 +715,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
           <caret line="9" column="37" lean-forward="false" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/containers/route/ProtectedRoute.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="17" column="37" lean-forward="false" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
           <folding />
         </state>
       </provider>
@@ -779,6 +772,14 @@
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/containers/route/ProtectedRoute.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="17" column="12" lean-forward="false" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>

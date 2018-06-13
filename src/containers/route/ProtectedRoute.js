@@ -14,11 +14,12 @@ class ProtectedRoute extends Component {
     }
 
     renderProtected = (routeProps) => {
-        const {"component": ProtectedComponent, path, currentUser} = this.props,
-            {data = {}} = currentUser,
-            {roles = []} = data,
+            const {"component": ProtectedComponent, path, currentUser} = this.props;
+            const data = currentUser.data || {};
+            const roles = data.roles || [];
+
             //availableLinks = getAvailableLinks([_roles.ADMINISTRATOR]) || [],// mock
-            availableLinks = getAvailableLinks(roles) || [], //Todo: Получить роли у текующего юзера
+            const availableLinks = getAvailableLinks(roles) || [], //Todo: Получить роли у текующего юзера
             isAccess = Boolean(localStorage.getItem("token")) && availableLinks.findIndex(i => path.includes(i)) > -1;
         return isAccess ? <ProtectedComponent {...routeProps}/> : <Redirect to={{"pathname": links.HOME_LINK}}/>
     }
