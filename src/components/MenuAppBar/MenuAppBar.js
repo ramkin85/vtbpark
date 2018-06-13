@@ -48,7 +48,7 @@ class MenuAppBar extends React.Component {
     };
 
     handleMenu(event,flag){
-        if (!this.state.menuAnchorEl && event && event.currentTarget){
+        if (event && event.currentTarget){
             this.setState({
                 menuAnchorEl:event.currentTarget
             });

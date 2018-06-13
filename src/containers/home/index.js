@@ -17,7 +17,7 @@ const Home = props => (
         </div>
         <PaperSheet >
             <CarOrderForm/>
-            <Values form="carOrderForm" />
+            {/*<Values form="carOrderForm" />*/}
         </PaperSheet>
     </div>
 );

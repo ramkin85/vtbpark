@@ -38,11 +38,11 @@ export function getMenuItems(currentRoles = [], changePage) {
     if (currentRoles.indexOf(roles.ADMINISTRATOR) > -1) {
         menuItems = [
             ...menuItems,
-            <ListItem key={"about"} button onClick={() => changePage(link.ABOUT_LINK)}>
+            <ListItem key={"references"} button onClick={() => changePage(link.REFERENCES_LINK)}>
                 <ListItemIcon>
                     <HelpIcon/>
                 </ListItemIcon>
-                <ListItemText primary="Справка"/>
+                <ListItemText primary="Справочники"/>
             </ListItem>
         ];
     }

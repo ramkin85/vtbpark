@@ -10,8 +10,9 @@ class MainMenu extends React.Component {
     render() {
         const {changePage, currentUser} = this.props;
         console.log("currentUser", currentUser); // ToDo: Получить роли у текущего узера
+        let roles = (currentUser && currentUser.data && currentUser.data.roles) ? currentUser.data.roles : [];
         return (
-            getMenuItems(currentUser.roles, changePage)
+            getMenuItems(roles, changePage)
         );
     }
 }
